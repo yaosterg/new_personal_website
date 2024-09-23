@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
+import { useRouter } from "next/router";
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
