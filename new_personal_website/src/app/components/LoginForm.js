@@ -10,7 +10,7 @@ import {
 import { auth } from "../../../firebase";
 import { useRouter } from "next/router";
 
-const AuthForm = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and sign-up
@@ -42,7 +42,7 @@ const AuthForm = () => {
 
   return (
     <div>
-      <h2>{isLogin ? "Login" : "Sign Up"}</h2>
+      <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -62,11 +62,11 @@ const AuthForm = () => {
       </form>
       {message && <p className="message">{message}</p>}
       {error && <p className="error">{error}</p>}
-      <button onClick={() => setIsLogin(!isLogin)}>
+      {/* <button onClick={() => setIsLogin(!isLogin)}>
         {isLogin ? "Create an account" : "Login with existing account"}
-      </button>
+      </button> */}
     </div>
   );
 };
 
-export default AuthForm;
+export default LoginForm;
