@@ -10,8 +10,11 @@ generator client {
 
 model User {
   id        Int      @id @default(autoincrement())
+  supabaseId String?
   email     String   @unique
-  name      String?
+  firstName String?
+  lastName  String?
+  password  String?
   posts     Post[] // Add this relation to indicate the User has multiple posts
   createdAt DateTime @default(now())
 }
