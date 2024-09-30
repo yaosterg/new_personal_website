@@ -1,21 +1,23 @@
 import { auth } from "../../../../../firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Prisma, PrismaClient } from "@prisma/client";
-import axios from "axios";
+import { NextResponse } from "next/server";
 
 const primsa = new PrismaClient();
 
-export async function GET(req) {
-  return new Response("GET request: REgister API is working!", { status: 200 });
-}
+// export async function GET(req) {
+//   return new Response("GET request: REgister API is working!", { status: 200 });
+// }
 
-export async function POST(req, res, next) {
-  const { email, password } = await req.json();
+export async function POST(req, res) {
+  const { email, password, firstName, lastName } = await req.json();
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
-      password
+      password,
+      firstName,
+      lastName
     );
     const user = userCredential.user;
 
@@ -24,11 +26,18 @@ export async function POST(req, res, next) {
         supabaseId: user.uid,
         email: email,
         password: password,
+        firstName: firstName,
+        lastName: lastName,
       },
     });
-    res.status(200).json({ user: newUser });
-  } catch (err) {
-    console.log("Error creating user:", err);
-    res.status(500).json({ err: "User creation failed" });
+
+    console.console.log("this is the response object", res);
+    // res.status(200).json(data);
+    return NextResponse.json({ message: "User created successfully" });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Registration error" },
+      { status: 500 }
+    );
   }
 }
