@@ -27,42 +27,46 @@ const Register = () => {
           },
         }
       );
+      setError(response.data.message);
     } catch (err) {
-      console.error("Error registering user: ", err.response.data);
-      setError(error.response.data.message || "Error");
+      console.error("Error registering user: ", err.response.data.message);
+      setError(err.response.data.error || "Error");
     }
   };
   return (
-    <form onSubmit={handleRegister}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password "
-        required
-      />
-      <input
-        type="text"
-        value={firstName}
-        placeholder="First Name"
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        type="text"
-        value={lastName}
-        placeholder=" Last Name "
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <button type="submit">Register</button>
-      {error && <p>{error}</p>}
-    </form>
+    <div>
+      {" "}
+      <form onSubmit={handleRegister}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password "
+          required
+        />
+        <input
+          type="text"
+          value={firstName}
+          placeholder="First Name"
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          value={lastName}
+          placeholder=" Last Name "
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <button type="submit">Register</button>
+        {error && <p>{error}</p>}
+      </form>
+    </div>
   );
 };
 
