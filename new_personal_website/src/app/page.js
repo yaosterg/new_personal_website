@@ -1,5 +1,4 @@
 import Image from "next/image";
-import AuthForm from "./auth/components/LoginForm";
 import Link from "next/link";
 
 export default function Home() {

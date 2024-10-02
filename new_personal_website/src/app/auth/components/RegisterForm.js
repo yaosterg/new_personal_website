@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Register = () => {
@@ -8,10 +9,10 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "/api/user/register",
@@ -28,11 +29,15 @@ const Register = () => {
         }
       );
       setError(response.data.message);
+      if (response.status === 200) {
+        router.push("/");
+      }
     } catch (err) {
       console.error("Error registering user: ", err.response.data.message);
       setError(err.response.data.error || "Error");
     }
   };
+
   return (
     <div>
       {" "}

@@ -1,72 +1,80 @@
-// components/AuthForm.js
-
 "use client";
-
 import { useState } from "react";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
-import { useRouter } from "next/router";
+import { useAuth } from "../../AuthContext";
 
-const LoginForm = () => {
+export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login and sign-up
-  const [message, setMessage] = useState(""); // State for feedback messages
-  const [error, setError] = useState(""); // State for error messages
+  const [error, setError] = useState("");
+  const router = useRouter();
+  const { currentUser } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-    setMessage(""); // Clear previous messages
+    setError("");
 
     try {
-      if (isLogin) {
-        // Log in existing user
-        await signInWithEmailAndPassword(auth, email, password);
-        setMessage("Login successful!");
-      } else {
-        // Sign up new user
-        await createUserWithEmailAndPassword(auth, email, password);
-        setMessage("Sign-up successful! You can now log in.");
-      }
-    } catch (error) {
-      console.error("Auth error:", error);
-      setError(
-        "Failed to authenticate. Please check your credentials and try again."
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
+      const user = userCredential.user;
+      console.log("Signin was successful");
+      router.push("/");
+    } catch (err) {
+      console.error("Login error", err.message);
+      setError(err.message);
+    }
+  };
+
+  const handleSignout = async () => {
+    try {
+      await signOut(auth);
+      router.push("/");
+    } catch (err) {
+      console.error("Error signing out", error);
     }
   };
 
   return (
     <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
-      </form>
-      {message && <p className="message">{message}</p>}
-      {error && <p className="error">{error}</p>}
-      {/* <button onClick={() => setIsLogin(!isLogin)}>
-        {isLogin ? "Create an account" : "Login with existing account"}
-      </button> */}
+      {currentUser ? (
+        <div>
+          <p>Welcome user {currentUser.email}</p>
+          <button
+            onClick={(e) => {
+              handleSignout();
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <button type="submit">Login</button>
+          {error}
+        </form>
+      )}
     </div>
   );
-};
-
-export default LoginForm;
+}

@@ -31,7 +31,7 @@ export async function POST(req) {
     return new Response(
       JSON.stringify({
         message: "User creation request successfully processed",
-        user: newUswer,
+        user: newUser,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
