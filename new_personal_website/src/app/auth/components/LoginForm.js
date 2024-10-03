@@ -24,7 +24,7 @@ export default function LoginForm() {
       );
       const user = userCredential.user;
       console.log("Signin was successful");
-      router.push("/");
+      router.push("/user/dashboard");
     } catch (err) {
       console.error("Login error", err.message);
       setError(err.message);
