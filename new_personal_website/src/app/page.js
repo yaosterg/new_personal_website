@@ -1,15 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Box, Flex } from "@chakra-ui/react";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
     <div>
-      <h1>Welcome to my new website under construction</h1>
-      <h1>NavBar goes here</h1>
-      <p>This is the main page</p>
-      <button>
-        <Link href="/auth/login">Login</Link>
-      </button>
+      <Box bg="tomato" w="100%" color="black">
+        <Navbar />
+      </Box>
+      <Box bg="white" w="100%" h="100%" color="black">
+        <h1>Welcome to my new website under construction</h1>
+
+        <p>This is the main page</p>
+      </Box>
     </div>
   );
 }
