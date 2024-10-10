@@ -9,9 +9,8 @@ export default function Home() {
         <Navbar />
       </Box>
       <Box bg="white" w="100%" h="100%" color="black">
-        <h1>Welcome to my new website under construction</h1>
-
-        <p>This is the main page</p>
+        <h1>#Main Page# </h1>
+        <p>Welcome to my new website under construction</p>
       </Box>
     </div>
   );
