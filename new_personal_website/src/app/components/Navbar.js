@@ -23,6 +23,8 @@ import { useAuth } from "../AuthContext";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../../../firebase";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -48,6 +50,28 @@ export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { currentUser } = useAuth();
   const router = useRouter;
+  const [firstName, setFirstName] = useState("");
+
+  //use effect can be deleted, it's used to display user data atm.
+  useEffect(() => {
+    if (currentUser) {
+      console.log(currentUser);
+
+      const fetchUser = async (uid) => {
+        try {
+          const response = await axios.get("/api/user/userdata", {
+            params: { uid: uid },
+          });
+          setFirstName(response.data.user.firstName);
+        } catch (e) {
+          console.log("There was an error fetching user data");
+        }
+      };
+      fetchUser(currentUser.uid);
+    } else {
+      console.log("not logged in");
+    }
+  }, []);
 
   const handleSignout = async () => {
     try {
@@ -84,7 +108,7 @@ export default function Navbar() {
           <Flex alignItems={"center"}>
             {currentUser ? (
               <div>
-                <p>Welcome User!</p>
+                <p>Welcome {firstName}!</p>
 
                 <button
                   onClick={(e) => {
