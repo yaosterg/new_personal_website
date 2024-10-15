@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
 import { useAuth } from "../../AuthContext";
+import FormModal from "./LoginModal";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");

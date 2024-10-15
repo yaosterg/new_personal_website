@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "../../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import FormModal from "../auth/components/LoginModal";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -119,9 +120,7 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <button>
-                <Link href="/auth/login">Login</Link>
-              </button>
+              <FormModal />
             )}
           </Flex>
         </Flex>
