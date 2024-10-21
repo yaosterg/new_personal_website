@@ -28,6 +28,7 @@ function FormModal() {
   const [error, setError] = useState("");
   const router = useRouter();
   const { currentUser } = useAuth();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -46,6 +47,11 @@ function FormModal() {
       console.error("Login error", err.message);
       setError(err.message);
     }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    router.push("/auth/signup");
   };
 
   return (
@@ -90,8 +96,8 @@ function FormModal() {
             >
               Login
             </Button>
-            <Button variant="ghost" onClick={onClose}>
-              Cancel
+            <Button variant="ghost" onClick={handleRegister}>
+              Register
             </Button>
           </ModalFooter>
         </ModalContent>

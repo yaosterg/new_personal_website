@@ -1,5 +1,16 @@
+//needs message to display whether sign up was successful or not, and to display error when an error occurs
+
 "use client";
 import { useState, useEffect } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  HStack,
+  Flex,
+  Button,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -38,39 +49,94 @@ const Register = () => {
     }
   };
 
+  const handleReturnHome = async (e) => {
+    e.preventDefault();
+    router.push("/");
+  };
+
   return (
     <div>
       {" "}
-      <form onSubmit={handleRegister}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password "
-          required
-        />
-        <input
-          type="text"
-          value={firstName}
-          placeholder="First Name"
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          value={lastName}
-          placeholder=" Last Name "
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <button type="submit">Register</button>
-        {error && <p>{error}</p>}
-      </form>
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        minH="100vh" // This makes the form vertically centered
+        bg="gray.100" // Optional: Set background color for the page
+      >
+        <Flex
+          direction="column"
+          p={8}
+          rounded="md"
+          bg="white"
+          boxShadow="lg"
+          width="100%" // Full width on small screens
+          maxW="400px" // Limit the width of the form
+        >
+          <form onSumbmit={handleRegister}>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </FormControl>
+            <FormControl id="password" isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
+
+            <HStack spacing={4}>
+              <FormControl id="firstName" isRequired>
+                <FormLabel>First Name</FormLabel>
+                <Input
+                  type="text"
+                  onChange={(e) => setFirstName(e.target.value)}
+                ></Input>
+              </FormControl>
+              <FormControl id="firstName" isRequired>
+                <FormLabel>Last Name</FormLabel>
+                <Input
+                  type="text"
+                  onChange={(e) => setLastName(e.target.value)}
+                ></Input>
+              </FormControl>
+            </HStack>
+            <HStack spacing={4} justify="space-evenly" width="100%">
+              <Button
+                colorScheme="green"
+                mt={3}
+                type="submit"
+                size="md"
+                width="full"
+                borderRadius="md"
+                onClick={handleRegister}
+              >
+                {" "}
+                Register
+              </Button>
+              <Button
+                mt={3}
+                variant="ghost"
+                type="submit"
+                size="md"
+                width="full"
+                borderRadius="md"
+                onClick={handleReturnHome}
+              >
+                {" "}
+                Cancel
+              </Button>
+            </HStack>
+            {error}
+          </form>
+        </Flex>
+      </Flex>
     </div>
   );
 };
