@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import HoverButton from "@/components/ui/hoverbutton";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -108,30 +109,8 @@ const Register = () => {
               </FormControl>
             </HStack>
             <HStack spacing={4} justify="space-evenly" width="100%">
-              <Button
-                colorScheme="green"
-                mt={3}
-                type="submit"
-                size="md"
-                width="full"
-                borderRadius="md"
-                onClick={handleRegister}
-              >
-                {" "}
-                Register
-              </Button>
-              <Button
-                mt={3}
-                variant="ghost"
-                type="submit"
-                size="md"
-                width="full"
-                borderRadius="md"
-                onClick={handleReturnHome}
-              >
-                {" "}
-                Cancel
-              </Button>
+              <HoverButton onClick={handleRegister} text="Register" />
+              <HoverButton onClick={handleReturnHome} text="Cancel" />
             </HStack>
             {error}
           </form>

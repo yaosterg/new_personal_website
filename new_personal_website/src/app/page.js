@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Box, Flex } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
+import HoverButton from "@/components/ui/hoverbutton";
 
 export default function Home() {
   return (

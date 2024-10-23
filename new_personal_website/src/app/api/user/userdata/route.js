@@ -6,7 +6,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const uid = searchParams.get("uid");
   try {
-    console.log("I am in this step of the process");
+    console.log("I am in this step of the process", uid);
     const user = await prisma.user.findUnique({
       where: { supabaseId: uid },
     });
@@ -18,7 +18,7 @@ export async function GET(req) {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (e) {
-    console.log("I have failed to find user");
+    console.log("I have failed to find user", e);
     return new Response(
       JSON.stringify({
         message: "An error occured by finding user",

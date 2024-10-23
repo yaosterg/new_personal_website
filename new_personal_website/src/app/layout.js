@@ -4,6 +4,7 @@ export const metadata = {
 };
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./AuthContext";
+import "@/styles/globals.css";
 
 export default function RootLayout({ children }) {
   return (

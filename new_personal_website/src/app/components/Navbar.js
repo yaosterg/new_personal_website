@@ -26,26 +26,7 @@ import { auth } from "../../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FormModal from "../auth/components/LoginModal";
-
-const Links = ["Dashboard", "Projects", "Team"];
-
-const NavLink = () => {
-  return (
-    <Box
-      as="a"
-      px={2}
-      py={1}
-      rounded={"md"}
-      _hover={{
-        textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.700"),
-      }}
-      href={"#"}
-    >
-      stuff goes here
-    </Box>
-  );
-};
+import HoverButton from "@/components/ui/hoverbutton";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -96,20 +77,14 @@ export default function Navbar() {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>Logo</Box>
-            {/* <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack> */}
           </HStack>
+
           <Flex alignItems={"center"}>
             {currentUser ? (
               <div>
-                <p>Welcome {firstName}!</p>
+                <p>
+                  Welcome <Link href="/user/dashboard"> {firstName}</Link>!
+                </p>
 
                 <button
                   onClick={(e) => {
@@ -124,16 +99,6 @@ export default function Navbar() {
             )}
           </Flex>
         </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
       </Box>
     </>
   );
