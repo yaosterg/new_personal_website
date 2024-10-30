@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
         <ChakraProvider>
           {" "}
           <AuthProvider>{children}</AuthProvider>
-        </ChakraProvider>{" "}
+        </ChakraProvider>
       </body>
     </html>
   );

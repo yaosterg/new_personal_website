@@ -1,8 +1,17 @@
-export default function DocCreate() {
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/ui/app-sidebar";
+import DocGeneratorContent from "./docgenerator_content";
+
+export default function DocGenerator({ children }) {
   return (
     <>
-      <div>This is where documents get uploaded and turned into PDF</div>
-      <div>This will be the last function</div>
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          <DocGeneratorContent />
+        </main>
+      </SidebarProvider>
     </>
   );
 }

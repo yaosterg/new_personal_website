@@ -1,21 +1,17 @@
-import Link from "next/link";
-export default function Dashboard() {
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/ui/app-sidebar";
+import DashboardContent from "./dashboard_content";
+
+export default function DashboardLayout({ children }) {
   return (
     <>
-      <div>This is the user Dashboard</div>
-      <div>this is the buttons going to the different areas</div>
-      <button>
-        <Link href="/user/calendar">Calendar Application</Link>
-      </button>
-      <button>
-        <Link href="/user/stocks">Stock Application</Link>
-      </button>
-      <button>
-        <Link href="/user/docgenerator">Stock Application</Link>
-      </button>
-      <button>
-        <Link href="/">Home</Link>
-      </button>
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          <DashboardContent />
+        </main>
+      </SidebarProvider>
     </>
   );
 }
